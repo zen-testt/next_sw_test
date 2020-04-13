@@ -1,4 +1,18 @@
-import Head from 'next/head'
+import Head from "next/head";
+
+if (typeof window !== "undefined" && "serviceWorker" in navigator) {
+  window.addEventListener("load", function () {
+    // there probably needs to be some check if sw is already registered
+    navigator.serviceWorker
+      .register("/service-worker.js", { scope: "/" })
+      .then(function (registration) {
+        console.log("SW registered: ", registration);
+      })
+      .catch(function (registrationError) {
+        console.log("SW registration failed: ", registrationError);
+      });
+  });
+}
 
 const Home = () => (
   <div className="container">
@@ -198,6 +212,6 @@ const Home = () => (
       }
     `}</style>
   </div>
-)
+);
 
-export default Home
+export default Home;
